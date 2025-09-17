@@ -1,5 +1,5 @@
 import { sdk } from "@farcaster/miniapp-sdk";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 
 function App() {
@@ -14,10 +14,37 @@ function App() {
         Vibes Engineering Template
       </h1>
       <p className="text-lg text-center opacity-80 text-gray-300">Ready to launch 🚀</p>
+      <ColorChangeButton />
       <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
         <ConnectMenu />
       </div>
     </div>
+  );
+}
+
+function ColorChangeButton() {
+  const [currentColor, setCurrentColor] = useState(0);
+  const colors = [
+    "bg-blue-600 hover:bg-blue-700",
+    "bg-red-600 hover:bg-red-700",
+    "bg-green-600 hover:bg-green-700",
+    "bg-purple-600 hover:bg-purple-700",
+    "bg-yellow-600 hover:bg-yellow-700",
+    "bg-pink-600 hover:bg-pink-700",
+  ];
+
+  const handleClick = () => {
+    setCurrentColor((prev) => (prev + 1) % colors.length);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      className={`px-6 py-3 text-white rounded-lg transition-colors font-semibold ${colors[currentColor]}`}
+    >
+      Change Color
+    </button>
   );
 }
 
